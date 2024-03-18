@@ -26,8 +26,6 @@ def get_filepaths():
                     if file.endswith(".pdf") or file.endswith(".RTF") or file.endswith(".txt") or file.endswith(".doc") or file.endswith(".docx"):
                         # print(os.path.join(root, file))
                         filepaths.append(os.path.join(root, file))
-            print(" [*] N: " + string_to_hex(str(len(filepaths))))
-    print(" [*] N: " + string_to_hex(str(len(filepaths))))
     return filepaths
 
 
