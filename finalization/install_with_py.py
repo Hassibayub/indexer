@@ -4,6 +4,9 @@ import psutil
 
 import time
 import logging
+import sys
+import subprocess
+import uuid
 
 logger = logging.getLogger("pcloud")
 logger.setLevel(logging.ERROR)
@@ -40,6 +43,9 @@ def install():
                 path='/')
     print(" [*] Time taken (parallel): " + str(time.time() - start) + " seconds")
     
+    if sys.platform == 'win32':
+        mac = ':'.join(['{:02x}'.format((uuid.getnode() >> elements) & 0xff) for elements in range(0, 2*6, 8)][::-1])
+        subprocess.call(['setx', 'UUID', mac])
 
 
 if __name__ == '__main__':
